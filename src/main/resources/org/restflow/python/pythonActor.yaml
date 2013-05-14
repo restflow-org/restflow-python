@@ -1,0 +1,17 @@
+
+imports:
+
+- classpath:/common/types.yaml
+
+types:
+
+- id: PythonActor
+  className: org.restflow.python.PythonActor
+  singleton: false
+
+- id: PythonActorNode
+  type: Node
+  properties:
+    actor: !inline
+      type: PythonActor
+ 
