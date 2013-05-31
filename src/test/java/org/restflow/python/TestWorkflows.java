@@ -2,10 +2,10 @@ package org.restflow.python;
 
 import org.restflow.test.WorkflowTestCase;
 
-public class TestWorkflowsPython extends WorkflowTestCase {
+public class TestWorkflows extends WorkflowTestCase {
 
-	public TestWorkflowsPython() {
-		super("workflows");
+	public TestWorkflows() {
+		super("org/restflow/test/TestWorkflows");
 	}
 	
 	@Override
