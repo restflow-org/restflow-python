@@ -7,7 +7,7 @@ import java
 # create a context for the workflow run
 context = WorkflowContextBuilder().build()
 
-# define the worlfow
+# define the workflow
 workflow =  (WorkflowBuilder()
 
     .context(context)

@@ -5,7 +5,7 @@ import ssrl.workflow.nodes.PythonNodeBuilder as PythonNodeBuilder
 # create a context for the workflow run
 context = WorkflowContextBuilder().build()
 
-# define the worklfow
+# define the workflow
 workflow = (WorkflowBuilder()
 
     # use the context created above

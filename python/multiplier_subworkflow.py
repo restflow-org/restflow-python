@@ -13,7 +13,7 @@ context = (WorkflowContextBuilder()
                .store(store)
                .build())
 
-# define the worlfow
+# define the workflow
 workflow = (WorkflowBuilder()
 
     .name("top")
