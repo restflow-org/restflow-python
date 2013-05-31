@@ -1,6 +1,6 @@
 imports:
 
-- classpath:/org/restflow/python/pythonActor.yaml
+- classpath:/org/restflow/python/types.yaml
 
 components:
 
