@@ -246,7 +246,10 @@ public class PythonActor extends AugmentedScriptActor {
 		@Override
 		public void appendScriptHeader(ActorScriptBuilder script,
 				String scriptType) {
-			
+
+			appendComment("import packages requried all python actors");
+			appendCode( "import os" );
+			appendBlankLine();
 		}
 
 		@Override

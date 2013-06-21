@@ -33,6 +33,9 @@ public class TestPythonActor extends RestFlowTestCase {
 		assertEquals(
 			"# AUGMENTED STEP SCRIPT FOR ACTOR Hello" 													+ EOL +
 			"" 																							+ EOL +
+			"# import packages requried all python actors"	 											+ EOL +
+			"import os" 																				+ EOL +
+			"" 																							+ EOL +
 			"# BEGINNING OF ORIGINAL SCRIPT" 															+ EOL +
 			"" 																							+ EOL +
 			"print 'Hello world!'" 																		+ EOL +
@@ -73,6 +76,9 @@ public class TestPythonActor extends RestFlowTestCase {
 		
 		assertEquals(
 			"# AUGMENTED STEP SCRIPT FOR ACTOR Hello" 													+ EOL +
+			"" 																							+ EOL +
+			"# import packages requried all python actors"	 											+ EOL +
+			"import os" 																				+ EOL +
 			"" 																							+ EOL +
 			"# define functions for enabling and disabling actor inputs" 								+ EOL +
 			"def enableInput(input)      :   global enabledInputs;    enabledInputs   += ' ' + input" 	+ EOL +
@@ -127,6 +133,9 @@ public class TestPythonActor extends RestFlowTestCase {
 		assertEquals(
 			"# AUGMENTED STEP SCRIPT FOR ACTOR Hello" 													+ EOL +
 			"" 																							+ EOL +
+			"# import packages requried all python actors"	 											+ EOL +
+			"import os" 																				+ EOL +
+			"" 																							+ EOL +
 			"# define functions for enabling and disabling actor outputs" 								+ EOL +
 			"def enableOutput(output)    :   global enabledOutputs;   enabledOutputs  += ' ' + output" 	+ EOL +
 			"def disableOutput(output)   :   global disabledOutputs;  disabledOutputs += ' ' + output" 	+ EOL +
@@ -178,6 +187,9 @@ public class TestPythonActor extends RestFlowTestCase {
 		
 		assertEquals(
 			"# AUGMENTED STEP SCRIPT FOR ACTOR Hello" 													+ EOL +
+			"" 																							+ EOL +
+			"# import packages requried all python actors"	 											+ EOL +
+			"import os" 																				+ EOL +
 			"" 																							+ EOL +
 			"# initialize actor state variables" 														+ EOL +
 			"greeting=None" 																			+ EOL +
@@ -231,6 +243,9 @@ public class TestPythonActor extends RestFlowTestCase {
 		assertEquals(
 			"# AUGMENTED STEP SCRIPT FOR ACTOR Multiplier"												+ EOL +
 			""																							+ EOL +
+			"# import packages requried all python actors"	 											+ EOL +
+			"import os" 																				+ EOL +
+			"" 																							+ EOL +
 			"# define functions for enabling and disabling actor inputs"								+ EOL +
 			"def enableInput(input)      :   global enabledInputs;    enabledInputs   += ' ' + input"	+ EOL +
 			"def disableInput(input)     :   global disabledInputs;   disabledInputs  += ' ' + input"	+ EOL +
