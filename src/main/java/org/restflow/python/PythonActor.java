@@ -59,6 +59,8 @@ public class PythonActor extends AugmentedScriptActor {
 				_assignStringLiteral(name, value);
 			} else if (type.equals("String")) {
 				_assignStringLiteral(name, value);
+			} else if (type.equals("File")) {
+				_assignStringLiteral(name, value);
 			} else if (type.equals("Boolean")) {
 				_assignBooleanLiteral(name, value, type);
 			} else if (type.equals("Integer")) {
