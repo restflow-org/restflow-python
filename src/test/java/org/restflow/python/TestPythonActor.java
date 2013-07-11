@@ -33,8 +33,9 @@ public class TestPythonActor extends RestFlowTestCase {
 		assertEquals(
 			"# AUGMENTED STEP SCRIPT FOR ACTOR Hello" 													+ EOL +
 			"" 																							+ EOL +
-			"# import packages requried all python actors"	 											+ EOL +
-			"import os" 																				+ EOL +
+			"# import packages required by all python actors" 											+ EOL +
+			"import os, json" 																			+ EOL +
+			"from StringIO import StringIO" 															+ EOL +
 			"" 																							+ EOL +
 			"# BEGINNING OF ORIGINAL SCRIPT" 															+ EOL +
 			"" 																							+ EOL +
@@ -46,6 +47,8 @@ public class TestPythonActor extends RestFlowTestCase {
 			"print '__END_OF_SCRIPT_OUTPUT__'" 															+ EOL +
 			"" 																							+ EOL +
 			"# Serialization of actor outputs"															+ EOL +
+			"_outputMap = dict()"																		+ EOL +
+			"if (len(_outputMap) > 0) :   print json.dumps(_outputMap)"									+ EOL +
 			"" 																							+ EOL 
 			, actor.getAugmentedStepScript());
 		
@@ -77,8 +80,9 @@ public class TestPythonActor extends RestFlowTestCase {
 		assertEquals(
 			"# AUGMENTED STEP SCRIPT FOR ACTOR Hello" 													+ EOL +
 			"" 																							+ EOL +
-			"# import packages requried all python actors"	 											+ EOL +
-			"import os" 																				+ EOL +
+			"# import packages required by all python actors" 											+ EOL +
+			"import os, json" 																			+ EOL +
+			"from StringIO import StringIO" 															+ EOL +
 			"" 																							+ EOL +
 			"# define functions for enabling and disabling actor inputs" 								+ EOL +
 			"def enableInput(input)      :   global enabledInputs;    enabledInputs   += ' ' + input" 	+ EOL +
@@ -101,9 +105,11 @@ public class TestPythonActor extends RestFlowTestCase {
 			"print '__END_OF_SCRIPT_OUTPUT__'" 															+ EOL +
 			"" 																							+ EOL +
 			"# Serialization of actor outputs" 															+ EOL +
-			"print 'enabledInputs: \"%s\"' % enabledInputs"												+ EOL +
-			"print 'disabledInputs: \"%s\"' % disabledInputs" 											+ EOL +
+			"_outputMap = dict()" 																		+ EOL +
+			"_outputMap['enabledInputs'] = enabledInputs" 												+ EOL +
+			"_outputMap['disabledInputs'] = disabledInputs" 											+ EOL +
 			""																							+ EOL +
+			"if (len(_outputMap) > 0) :   print json.dumps(_outputMap)" 								+ EOL +
 			"" 																							+ EOL 
 			, actor.getAugmentedStepScript());
 		
@@ -133,8 +139,9 @@ public class TestPythonActor extends RestFlowTestCase {
 		assertEquals(
 			"# AUGMENTED STEP SCRIPT FOR ACTOR Hello" 													+ EOL +
 			"" 																							+ EOL +
-			"# import packages requried all python actors"	 											+ EOL +
-			"import os" 																				+ EOL +
+			"# import packages required by all python actors" 											+ EOL +
+			"import os, json" 																			+ EOL +
+			"from StringIO import StringIO" 															+ EOL +
 			"" 																							+ EOL +
 			"# define functions for enabling and disabling actor outputs" 								+ EOL +
 			"def enableOutput(output)    :   global enabledOutputs;   enabledOutputs  += ' ' + output" 	+ EOL +
@@ -154,11 +161,13 @@ public class TestPythonActor extends RestFlowTestCase {
 			"print '__END_OF_SCRIPT_OUTPUT__'" 															+ EOL +
 			"" 																							+ EOL +
 			"# Serialization of actor outputs" 															+ EOL +
-			"print 'greeting: ', (\"\\\"%s\\\"\" % greeting, \'~\')[greeting==None]"					+ EOL +
-			"" 																							+ EOL +
-			"print 'enabledOutputs: \"%s\"' % enabledOutputs" 											+ EOL +
-			"print 'disabledOutputs: \"%s\"' % disabledOutputs" 										+ EOL +
+			"_outputMap = dict()" 																		+ EOL +
+			"_outputMap['greeting'] = greeting" 														+ EOL +
+			""							 																+ EOL +
+			"_outputMap['enabledOutputs'] = enabledOutputs"												+ EOL +
+			"_outputMap['disabledOutputs'] = disabledOutputs"											+ EOL +
 			""																							+ EOL +
+			"if (len(_outputMap) > 0) :   print json.dumps(_outputMap)"									+ EOL +
 			"" 																							+ EOL 
 			, actor.getAugmentedStepScript());
 		
@@ -188,8 +197,9 @@ public class TestPythonActor extends RestFlowTestCase {
 		assertEquals(
 			"# AUGMENTED STEP SCRIPT FOR ACTOR Hello" 													+ EOL +
 			"" 																							+ EOL +
-			"# import packages requried all python actors"	 											+ EOL +
-			"import os" 																				+ EOL +
+			"# import packages required by all python actors" 											+ EOL +
+			"import os, json" 																			+ EOL +
+			"from StringIO import StringIO" 															+ EOL +
 			"" 																							+ EOL +
 			"# initialize actor state variables" 														+ EOL +
 			"greeting=None" 																			+ EOL +
@@ -204,8 +214,10 @@ public class TestPythonActor extends RestFlowTestCase {
 			"print '__END_OF_SCRIPT_OUTPUT__'" 															+ EOL +
 			""							 																+ EOL +
 			"# Serialization of actor outputs" 															+ EOL +
-			"print 'greeting: ', (\"\\\"%s\\\"\" % greeting, '~')[greeting==None]"						+ EOL +
-			"" 																							+ EOL +
+			"_outputMap = dict()" 																		+ EOL +
+			"_outputMap['greeting'] = greeting" 														+ EOL +
+			""							 																+ EOL +
+			"if (len(_outputMap) > 0) :   print json.dumps(_outputMap)"									+ EOL +
 			"" 																							+ EOL 
 			, actor.getAugmentedStepScript());
 		
@@ -243,8 +255,9 @@ public class TestPythonActor extends RestFlowTestCase {
 		assertEquals(
 			"# AUGMENTED STEP SCRIPT FOR ACTOR Multiplier"												+ EOL +
 			""																							+ EOL +
-			"# import packages requried all python actors"	 											+ EOL +
-			"import os" 																				+ EOL +
+			"# import packages required by all python actors" 											+ EOL +			
+			"import os, json" 																			+ EOL +
+			"from StringIO import StringIO" 															+ EOL +
 			"" 																							+ EOL +
 			"# define functions for enabling and disabling actor inputs"								+ EOL +
 			"def enableInput(input)      :   global enabledInputs;    enabledInputs   += ' ' + input"	+ EOL +
@@ -275,15 +288,17 @@ public class TestPythonActor extends RestFlowTestCase {
 			"# signal end of output from original script"												+ EOL +
 			"print '__END_OF_SCRIPT_OUTPUT__'"															+ EOL +
 			""																							+ EOL +
-			"# Serialization of actor outputs"															+ EOL +
-			"print 'z: ', (z, 'null')[z==None]"															+ EOL +
+			"# Serialization of actor outputs" 															+ EOL +
+			"_outputMap = dict()"																		+ EOL +
+			"_outputMap['z'] = z"		 																+ EOL +
 			""																							+ EOL +
-			"print 'enabledInputs: \"%s\"' % enabledInputs"												+ EOL +
-			"print 'disabledInputs: \"%s\"' % disabledInputs"											+ EOL +
-			""																							+ EOL +
-			"print 'enabledOutputs: \"%s\"' % enabledOutputs"											+ EOL +
-			"print 'disabledOutputs: \"%s\"' % disabledOutputs" 										+ EOL +
-			"" 																							+ EOL +
+			"_outputMap['enabledInputs'] = enabledInputs"												+ EOL +
+			"_outputMap['disabledInputs'] = disabledInputs"												+ EOL +
+			""							 																+ EOL +
+			"_outputMap['enabledOutputs'] = enabledOutputs"												+ EOL +
+			"_outputMap['disabledOutputs'] = disabledOutputs"											+ EOL +
+			""							 																+ EOL +
+			"if (len(_outputMap) > 0) :   print json.dumps(_outputMap)"									+ EOL +
 			"" 																							+ EOL
 			, actor.getAugmentedStepScript());
 		
