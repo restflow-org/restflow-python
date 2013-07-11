@@ -9,6 +9,7 @@ import org.restflow.actors.Workflow;
 import org.restflow.actors.WorkflowBuilder;
 import org.restflow.data.ConsumableObjectStore;
 import org.restflow.directors.MTDataDrivenDirector;
+import org.restflow.nodes.JavaNodeBuilder;
 import org.restflow.python.PythonNodeBuilder;
 import org.restflow.test.RestFlowTestCase;
 import org.restflow.util.StdoutRecorder;
@@ -155,5 +156,46 @@ public class TestPythonActorBuilder extends RestFlowTestCase {
 		assertTrue(triples.remove(36));
 		
 		assertEquals(0, triples.size());
+	}
+	
+	public void test_JsonInput_AddArrayElements() throws Exception {
+		
+		Workflow workflow = new WorkflowBuilder()
+		
+			.name("ArrayAdder")
+			.context(_context)
+			.director(new MTDataDrivenDirector())
+			
+			.node(new JavaNodeBuilder()
+				.name("source")
+				.bean(new Object() {
+					public Integer[] o;
+					public void step() { o = new Integer[] {1, 2, 3};}
+				})
+				.outflow("o", "/array")
+			)
+				
+			.node(new PythonNodeBuilder()
+				.name("doubler")
+				.type("a", "Collection")
+				.inflow("/array", "a")
+				.step(	"sum = 0"			+ EOL +
+						"for i in a:"		+ EOL +
+						"  sum += i"		+ EOL)
+				.outflow("sum", "/sum")
+			)
+
+			.node(new PythonNodeBuilder()
+				.name("printer")
+				.inflow("/sum", "value")
+				.step("print value"))
+		
+			.build();
+		
+		workflow.configure();
+		workflow.initialize();
+		workflow.run();
+		workflow.wrapup();
+		workflow.dispose();
 	}
 }
