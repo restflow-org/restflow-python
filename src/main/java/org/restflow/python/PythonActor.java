@@ -3,6 +3,8 @@ package org.restflow.python;
 import org.restflow.actors.ActorScriptBuilder;
 import org.restflow.actors.AugmentedScriptActor;
 
+import com.google.gson.Gson;
+
 public class PythonActor extends AugmentedScriptActor {
 
 	@Override
@@ -57,6 +59,8 @@ public class PythonActor extends AugmentedScriptActor {
 				_assignNullLiteral(name);
 			} else if (type == null) {
 				_assignStringLiteral(name, value);
+			} else if (type.equals("Collection")) {
+				_assignJsonLiteral(name, value);
 			} else if (type.equals("String")) {
 				_assignStringLiteral(name, value);
 			} else if (type.equals("File")) {
@@ -68,6 +72,25 @@ public class PythonActor extends AugmentedScriptActor {
 			} else {
 				_assignOtherLiteral(name, value);
 			}
+			return this;
+		}
+		
+		private ScriptBuilder _assignJsonLiteral(String name, Object value) throws ClassNotFoundException {
+
+//			System.out.println( value.getClass().getSimpleName() );
+//			Class collectionType = Class.forName("java.util.Collection");
+//			System.out.println( value.getClass().isArray());
+//			System.out.println( collectionType.isAssignableFrom(value.getClass()));
+			
+			Gson gson = new Gson();
+			String json = gson.toJson(value);
+			
+			_script.append(		name						)
+				   .append( 	" = json.load(StringIO('"	)
+				   .append( 	json						)
+				   .append(		"'))"						)
+				   .append(		EOL							);
+			
 			return this;
 		}
 		
@@ -141,74 +164,43 @@ public class PythonActor extends AugmentedScriptActor {
 		}
 
 		public ActorScriptBuilder appendSerializationBeginStatement() {
+			_script.append( 	"_outputMap = dict()" 			+ EOL );
 			return this;
 		}
 		
 		public ActorScriptBuilder appendSerializationEndStatement() {
+			_script.append( 	"if (len(_outputMap) > 0) : " 		+
+								"  print json.dumps(_outputMap)" 	+ EOL );
 			return this;
 		}
 		
 		public ScriptBuilder appendVariableSerializationStatement(String name, String type) {
-			if (type == null || type.equals("String")) {
-				_appendStringVariableYamlPrinter(name);
-			} else if (type.equals("Boolean")) {
-				_appendBooleanVariableYamlPrinter(name);
+			
+			_script.append(			"_outputMap['"			)
+				   .append(			name					)
+				   .append(			"'] = "					);
+			
+			if (type != null && type.equals("File")) {
+				
+				_script.append(		name + ".__str__()"		);
+			
 			} else {
-				_appendNonstringVariableYamlPrinter(name);
+				_script.append(		name					);
+			
 			}
-			return this;
-		}
-
-		private ScriptBuilder _appendNonstringVariableYamlPrinter(String name) {
-			_script.append(	"print '"		)
-				.append(	name			)
-				.append(	": ', ("		)
-				.append(	name			)
-				.append(	", 'null')["	)
-				.append(	name			)
-				.append(	"==None]"		)
-				.append(	EOL				);	
-			return this;
-		}
-
-		private ScriptBuilder _appendStringVariableYamlPrinter(String name) {
-			_script.append(	"print '"					)
-				.append(	name						)
-				.append(	": ', (\"\\\"%s\\\"\" % "	)
-				.append(	name						)
-				.append(	", '~')["					)
-				.append(	name						)
-				.append(	"==None]"					)
-				.append(	EOL							);	
+			
+			_script.append(			EOL						);
+			
 			return this;
 		}
 
 		public ActorScriptBuilder _appendNullStringYamlPrintStatement(String name) {
-			_script.append(	"print '"		)
-				.append(	name			)
-				.append(	": null'"		)
-				.append(	EOL				);
+			appendVariableSerializationStatement(name, null);
 			return this;
 		}
-		
 		
 		public ActorScriptBuilder appendNonNullStringVariableSerializationPrintStatement(String name) {
-			_script.append(		"print '"		)
-				   .append(		name			)
-				   .append( 	": \"%s\"' % "	)
-				   .append(		name			)
-				   .append(		EOL				);
-			return this;
-		}
-
-		
-		private ScriptBuilder _appendBooleanVariableYamlPrinter(String name) {
-			_script.append(		"print '"						)
-				   .append(		name							)
-				   .append( 	": ', (\"false\", \"true\")["	)
-				   .append(     name							)
-				   .append(		"==True]"						)
-				   .append(		EOL								);	
+			appendVariableSerializationStatement(name, null);
 			return this;
 		}
 
@@ -249,8 +241,9 @@ public class PythonActor extends AugmentedScriptActor {
 		public void appendScriptHeader(ActorScriptBuilder script,
 				String scriptType) {
 
-			appendComment("import packages requried all python actors");
-			appendCode( "import os" );
+			appendComment("import packages required by all python actors");
+			appendCode( "import os, json" );
+			appendCode( "from StringIO import StringIO");
 			appendBlankLine();
 		}
 
