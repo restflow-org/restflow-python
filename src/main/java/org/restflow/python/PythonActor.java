@@ -174,6 +174,11 @@ public class PythonActor extends AugmentedScriptActor {
 			return this;
 		}
 		
+		public ScriptBuilder appendOutputVariableSerializationStatement(String name, String type) {
+			appendVariableSerializationStatement(name, type);			
+			return this;
+		}
+		
 		public ScriptBuilder appendVariableSerializationStatement(String name, String type) {
 			
 			_script.append(			"_outputMap['"			)
