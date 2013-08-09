@@ -7,6 +7,12 @@ import com.google.gson.Gson;
 
 public class PythonActor extends AugmentedScriptActor {
 
+	
+	public PythonActor() {
+		super();
+		_scriptExtension = "py";
+	}
+	
 	@Override
 	public ActorScriptBuilder getNewScriptBuilder() {
 		return new PythonActor.ScriptBuilder();
