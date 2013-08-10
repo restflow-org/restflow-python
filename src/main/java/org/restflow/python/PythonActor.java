@@ -1,5 +1,7 @@
 package org.restflow.python;
 
+import java.io.IOException;
+
 import org.restflow.actors.ActorScriptBuilder;
 import org.restflow.actors.AugmentedScriptActor;
 
@@ -32,6 +34,11 @@ public class PythonActor extends AugmentedScriptActor {
 
 		protected StringBuilder _script = new StringBuilder();
 		private final static String EOL = System.getProperty("line.separator");
+
+		public ActorScriptBuilder append(String text) {
+			_script.append(		text	);
+			return this;
+		}
 
 		public ActorScriptBuilder appendCode(String code) {
 			_script.append(		code	)
@@ -250,7 +257,7 @@ public class PythonActor extends AugmentedScriptActor {
 
 		@Override
 		public void appendScriptHeader(ActorScriptBuilder script,
-				String scriptType) {
+				String scriptType) throws IOException {
 
 			appendComment("import packages required by all python actors");
 			appendCode( "import os, json" );
