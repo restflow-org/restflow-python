@@ -276,8 +276,8 @@ public class TestPythonActor extends RestFlowTestCase {
 			"disabledOutputs = ''"																		+ EOL +
 			""																							+ EOL +
 			"# initialize actor input variables"														+ EOL +
-			"y=12"																						+ EOL +
 			"x=3"																						+ EOL +
+			"y=12"																						+ EOL +
 			""																							+ EOL +
 			"# BEGINNING OF ORIGINAL SCRIPT"															+ EOL +
 			""																							+ EOL +
